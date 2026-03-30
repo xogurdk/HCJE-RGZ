@@ -9,7 +9,7 @@
     :root {
       --font-sans: 'Gowun Dodum', sans-serif;
       --brand: #ff6b6b; --accent: #ffd166; --ok: #16a34a; --bad: #ef4444; 
-      --bg: #fafafa; --card: #fff; --ink: #222; --padlet-bg: #f3f4f6;
+      --bg: #fafafa; --card: #fff; --ink: #222;
     }
     * { box-sizing: border-box; }
     body { margin: 0; font-family: var(--font-sans); background: var(--bg); color: var(--ink); }
@@ -17,7 +17,7 @@
     /* 네비게이션 & 레이아웃 */
     .app-header { display: flex; justify-content: space-between; align-items: center; padding: 16px 24px; background: var(--card); box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 100; }
     .app-title { font-size: 24px; font-weight: 900; color: var(--brand); margin: 0; }
-    .user-info { font-size: 14px; color: #666; font-weight: bold; }
+    .user-info { font-size: 15px; color: #444; font-weight: bold; background: #fff3f3; padding: 6px 12px; border-radius: 20px; }
     
     .nav-tabs { display: flex; background: #fff; border-bottom: 2px solid #eee; overflow-x: auto; }
     .tab-btn { flex: 1; padding: 14px 10px; border: none; background: none; font-family: inherit; font-size: 16px; font-weight: bold; color: #888; cursor: pointer; white-space: nowrap; transition: 0.2s; }
@@ -30,22 +30,23 @@
 
     .card { background: var(--card); border-radius: 16px; box-shadow: 0 6px 16px rgba(0,0,0,.08); padding: 24px; margin-bottom: 20px; }
     
-    /* 공통 폼 요소 */
     label { font-size: 14px; font-weight: bold; color: #444; display: block; margin-bottom: 6px; margin-top: 12px; }
-    input[type="text"], input[type="password"], select, textarea { width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #ddd; font-family: inherit; font-size: 15px; margin-bottom: 10px; background: #fafafa; }
+    input[type="text"], input[type="password"], select, textarea { width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #ddd; font-family: inherit; font-size: 15px; margin-bottom: 10px; background: #fafafa; transition: border-color 0.2s; }
+    input:focus, select:focus, textarea:focus { outline: none; border-color: var(--brand); }
     textarea { resize: vertical; min-height: 80px; }
+    
     button.btn-primary { width: 100%; padding: 14px; border-radius: 10px; border: none; background: var(--brand); color: #fff; font-size: 16px; font-weight: 900; cursor: pointer; box-shadow: 0 4px 10px rgba(255,107,107,0.3); transition: 0.2s; }
-    button.btn-primary:hover { transform: translateY(-2px); }
+    button.btn-primary:hover:not(:disabled) { transform: translateY(-2px); }
+    button.btn-primary:disabled { background: #cbd5e1; cursor: not-allowed; box-shadow: none; color: #64748b; }
     button.btn-secondary { background: #6b7280; color: white; border: none; padding: 10px 16px; border-radius: 8px; font-weight: bold; cursor: pointer; }
 
-    /* 로그인 화면 전용 */
     #loginWrap { max-width: 400px; margin: 100px auto; text-align: center; }
-    .mascot { width: 80px; margin-bottom: 10px; }
 
     /* 토론 담벼락 (패들렛 스타일) */
     .padlet-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; margin-top: 20px; }
-    .post-card { background: #fff; border: 2px solid #eee; border-radius: 12px; padding: 16px; box-shadow: 2px 4px 10px rgba(0,0,0,0.04); display: flex; flex-direction: column; justify-content: space-between; }
-    .post-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-size: 12px; color: #666; }
+    .post-card { background: #fff; border: 2px solid #eee; border-radius: 12px; padding: 16px; box-shadow: 2px 4px 10px rgba(0,0,0,0.04); display: flex; flex-direction: column; justify-content: space-between; transition: 0.3s; }
+    .post-card.optimistic { opacity: 0.6; transform: scale(0.98); border-color: var(--brand); }
+    .post-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-size: 13px; font-weight: bold; color: var(--brand); }
     .tag { padding: 4px 8px; border-radius: 6px; font-weight: bold; font-size: 11px; }
     .tag.debate { background: #ffe4e6; color: #e11d48; }
     .tag.infer { background: #e0e7ff; color: #4338ca; }
@@ -53,11 +54,10 @@
     .post-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px dashed #eee; padding-top: 10px; }
     .like-btn { background: #fff1f2; color: #e11d48; border: 1px solid #fecdd3; border-radius: 20px; padding: 6px 12px; font-size: 13px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 4px; }
     
-    /* 필터 공통 툴바 */
     .filter-toolbar { display: flex; gap: 10px; align-items: flex-end; background: #fff3f3; padding: 16px; border-radius: 12px; margin-bottom: 20px; }
     .filter-toolbar > div { flex: 1; }
 
-    /* 독서오락관(기존 문제풀이) 전용 */
+    /* 독서오락관 */
     .quizQ { font-size: 22px; font-weight: bold; margin: 10px 0 20px; line-height: 1.5; text-align: center; }
     .answerBox { display: flex; gap: 10px; }
     .feedback { margin-top: 15px; font-weight: 800; text-align: center; font-size: 18px; }
@@ -81,11 +81,10 @@
   <div id="appScreen" style="display: none;">
     <div class="app-header">
       <h1 class="app-title">시작이반</h1>
-      <div class="user-info" id="userInfoDisplay">학생 정보</div>
-    </div>
+      <div class="user-info" id="userInfoDisplay">학생 정보</div> </div>
     
     <div class="nav-tabs">
-      <button class="tab-btn active" onclick="switchTab('quizTab')">🎮 독서오락관 (풀기)</button>
+      <button class="tab-btn active" onclick="switchTab('quizTab')">🎮 독서오락관</button>
       <button class="tab-btn" onclick="switchTab('makeTab')">✍️ 문제 출제</button>
       <button class="tab-btn" onclick="switchTab('discussTab')">🗣️ 토론 담벼락</button>
       <button class="tab-btn" onclick="switchTab('reportTab')">📝 감상문 쓰기</button>
@@ -142,18 +141,17 @@
               <textarea id="discussContent" placeholder="모둠에서 나눈 멋진 질문이나 의견을 남겨주세요!" style="min-height: 50px; margin-bottom:0;"></textarea>
             </div>
             <div>
-              <button class="btn-primary" style="height: 50px; padding: 0 20px;" onclick="addDiscussion()">남기기</button>
+              <button class="btn-primary" id="discussBtn" style="height: 50px; padding: 0 20px;" onclick="addDiscussion()">남기기</button>
             </div>
           </div>
         </div>
-        <div class="padlet-grid" id="padletBoard">
-          </div>
+        <div class="padlet-grid" id="padletBoard"></div>
       </div>
 
       <div id="reportTab" class="section">
         <div class="card">
           <textarea id="reportContent" placeholder="오늘 읽은 부분에서 가장 인상 깊었던 점이나 느낀 점을 자유롭게 적어보세요." style="min-height: 120px;"></textarea>
-          <button class="btn-primary" onclick="addReport()">감상문 등록</button>
+          <button class="btn-primary" id="reportBtn" onclick="addReport()">감상문 등록</button>
         </div>
         <h3 style="margin-top: 30px; border-bottom: 2px solid #eee; padding-bottom: 10px;">친구들의 감상문</h3>
         <div id="reportList"></div>
@@ -164,18 +162,15 @@
 
   <script>
     // ==========================================
-    // API 설정 (반드시 1단계에서 배포한 새 URL로 변경하세요!)
+    // API 설정 (반드시 선생님의 새 웹앱 URL로 변경하세요!)
     // ==========================================
     const API_URL = 'https://script.google.com/macros/s/AKfycbz6wsh5lJxDDHmxhNafWs4Un01pmiFG-FWTmdxHIl-cfzXH71pfC16_APd174ZNlQic/exec'; 
 
     let currentUser = null;
     let unitsList = [];
     let pollingTimer = null;
-
-    // 퀴즈용 상태
     let quizState = { unit: '', ids: [], current: null, hits: 0, total: 0 };
 
-    // API 통신 공통 함수
     async function fetchAPI(action, payload = {}) {
       payload.action = action;
       try {
@@ -189,8 +184,6 @@
         if (!result.success) throw new Error(result.error);
         return result.data;
       } catch (err) {
-        console.error(err);
-        alert('통신 오류: ' + err.message);
         throw err;
       }
     }
@@ -206,18 +199,20 @@
 
       try {
         currentUser = await fetchAPI('verifyLogin', { userId: id, userPw: pw });
-        document.getElementById('userInfoDisplay').innerText = `${currentUser.cls} ${currentUser.group} - ${currentUser.name}`;
+        // 이름만 표시되도록 수정
+        document.getElementById('userInfoDisplay').innerText = `👤 ${currentUser.name} 학생`;
         
-        // 로그인 성공 시 화면 전환 및 기초 데이터(필터) 로드
         document.getElementById('loginScreen').style.display = 'none';
         document.getElementById('appScreen').style.display = 'block';
         await loadFilters();
       } catch (e) {
+        alert(e.message);
+      } finally {
         btn.innerText = '입장하기'; btn.disabled = false;
       }
     }
 
-    // 2. 도서 목록(필터) 로드
+    // 2. 도서 목록 로드
     async function loadFilters() {
       const data = await fetchAPI('getFilters');
       unitsList = data.units || [];
@@ -225,17 +220,15 @@
       let unitHtml = '<option value="">도서를 선택하세요</option>';
       unitHtml += '<option value="__RANDOM__">🎲 랜덤 퀴즈!</option>';
       unitsList.forEach(u => unitHtml += `<option value="${u}">${u}</option>`);
-      
       document.getElementById('quizUnitSel').innerHTML = unitHtml;
       
       let basicHtml = '<option value="">도서를 선택하세요</option>';
       unitsList.forEach(u => basicHtml += `<option value="${u}">${u}</option>`);
-      
       document.getElementById('makeUnitSel').innerHTML = basicHtml;
       document.getElementById('globalUnitSel').innerHTML = basicHtml;
     }
 
-    // 3. 탭 전환 제어
+    // 3. 탭 전환
     function switchTab(tabId) {
       document.querySelectorAll('.section').forEach(el => el.classList.remove('active'));
       document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
@@ -243,13 +236,10 @@
       document.getElementById(tabId).classList.add('active');
       event.currentTarget.classList.add('active');
 
-      // 퀴즈, 출제 탭에서는 공통 책선택 바 숨김 / 토론, 감상 탭에서는 보임
       const globalBar = document.getElementById('globalFilter');
       if (tabId === 'discussTab' || tabId === 'reportTab') {
         globalBar.style.display = 'flex';
-        onGlobalUnitChange(); // 데이터 즉시 로드
-        
-        // 토론 탭이면 10초마다 자동 갱신(Polling)
+        onGlobalUnitChange(); 
         if(pollingTimer) clearInterval(pollingTimer);
         if (tabId === 'discussTab') pollingTimer = setInterval(() => loadDiscussions(false), 10000);
       } else {
@@ -258,15 +248,12 @@
       }
     }
 
-    // 공통 도서 변경 시 데이터 새로고침
     function onGlobalUnitChange() {
       if (document.getElementById('discussTab').classList.contains('active')) loadDiscussions(true);
       if (document.getElementById('reportTab').classList.contains('active')) loadReports();
     }
 
-    // ==========================================
-    // 기능 1: 독서 오락관 (퀴즈 풀기)
-    // ==========================================
+    // 기능 1: 퀴즈 풀기
     async function startQuiz() {
       quizState.unit = document.getElementById('quizUnitSel').value;
       if (!quizState.unit) return alert('도서를 선택하세요.');
@@ -291,8 +278,8 @@
         }
 
         if (!q) {
-          box.innerHTML = `<h3>더 이상 문제가 없습니다! 👏</h3>
-            <button class="btn-secondary" onclick="resetQuiz()">처음으로 돌아가기</button>`;
+          box.innerHTML = `<h3>해당 책에 등록된 문제가 없거나 모두 풀었습니다! 👏</h3>
+            <button class="btn-secondary" onclick="resetQuiz()">돌아가기</button>`;
           return;
         }
 
@@ -303,14 +290,14 @@
           <div class="quizQ">${q.question}</div>
           <div class="answerBox">
             <input type="text" id="ansInput" placeholder="정답 입력" onkeypress="if(event.key==='Enter') checkAnswer()">
-            <button class="btn-primary" style="width:120px;" onclick="checkAnswer()">확인</button>
+            <button class="btn-primary" id="submitAnsBtn" style="width:120px;" onclick="checkAnswer()">확인</button>
           </div>
           <div id="feedbackBox" class="feedback"></div>
           <div id="explainBox" style="display:none; margin-top:10px; color:#666;"></div>
           <button id="nextBtn" class="btn-secondary" style="display:none; width:100%; margin-top:15px;" onclick="loadNextQuiz()">다음 문제</button>
         `;
-        document.getElementById('ansInput').focus();
-      } catch (e) { box.innerHTML = '오류 발생. 다시 시도해 주세요.'; }
+        setTimeout(() => document.getElementById('ansInput').focus(), 100);
+      } catch (e) { box.innerHTML = '문제 데이터가 없거나 불러오지 못했습니다.'; }
     }
 
     function checkAnswer() {
@@ -335,9 +322,8 @@
       if (q.explanation) { ex.style.display = 'block'; ex.innerText = `💡 해설: ${q.explanation}`; }
       
       document.getElementById('ansInput').disabled = true;
-      document.querySelector('.answerBox button').style.display = 'none';
+      document.getElementById('submitAnsBtn').style.display = 'none';
       document.getElementById('nextBtn').style.display = 'block';
-      document.getElementById('nextBtn').focus();
     }
 
     function updateQuizScore() {
@@ -350,9 +336,7 @@
       document.getElementById('quizFilterCard').style.display = 'block';
     }
 
-    // ==========================================
-    // 기능 2: 문제 내기
-    // ==========================================
+    // 기능 2: 문제 내기 (속도 개선 및 버튼 잠금)
     async function submitNewQuestion() {
       const unit = document.getElementById('makeUnitSel').value;
       const q = document.getElementById('makeQ').value.trim();
@@ -362,24 +346,26 @@
       if (!unit || !q || !a) return alert('도서, 질문, 정답은 필수입니다!');
 
       const btn = document.getElementById('makeBtn');
-      btn.innerText = '제출 중...'; btn.disabled = true;
+      btn.innerText = '⏳ 문제 등록 중...'; 
+      btn.disabled = true; // 중복 클릭 방지
 
       try {
         await fetchAPI('submitQuestion', { 
           payload: { cls: currentUser.cls, maker: currentUser.name, unit: unit, question: q, answer: a, explanation: ex }
         });
-        alert('문제가 등록되었습니다! 친구들이 풀 수 있게 되었습니다.');
+        alert('문제가 등록되었습니다!');
         document.getElementById('makeQ').value = '';
         document.getElementById('makeA').value = '';
         document.getElementById('makeEx').value = '';
+      } catch(e) {
+        alert('등록에 실패했습니다.');
       } finally {
-        btn.innerText = '제출하기'; btn.disabled = false;
+        btn.innerText = '제출하기'; 
+        btn.disabled = false;
       }
     }
 
-    // ==========================================
-    // 기능 3: 토론 담벼락 (Padlet 스타일)
-    // ==========================================
+    // 기능 3: 토론 담벼락 (선반영 UI 기법 적용)
     async function addDiscussion() {
       const unit = document.getElementById('globalUnitSel').value;
       const type = document.getElementById('discussType').value;
@@ -388,20 +374,43 @@
       if (!unit) return alert('상단의 [현재 선택된 책]을 먼저 골라주세요.');
       if (!content) return alert('내용을 입력해주세요.');
 
+      const btn = document.getElementById('discussBtn');
+      btn.innerText = '⏳ 처리 중...'; 
+      btn.disabled = true; // 중복 방지 잠금
+
+      // 선반영 (Optimistic UI): 통신 전 화면에 미리 그려서 답답함 해소
+      const board = document.getElementById('padletBoard');
+      const tagClass = type === '논쟁' ? 'debate' : 'infer';
+      const tempHTML = `
+        <div class="post-card optimistic">
+          <div>
+            <div class="post-header"><span class="tag ${tagClass}">${type}</span><span>👤 ${currentUser.name}</span></div>
+            <div class="post-content">${content.replace(/\n/g, '<br>')}</div>
+          </div>
+          <div class="post-footer"><span style="font-size:11px; color:#aaa;">방금 전</span></div>
+        </div>
+      `;
+      board.insertAdjacentHTML('afterbegin', tempHTML);
+
       try {
-        await fetchAPI('addDiscussion', {
-          payload: { unit: unit, maker: currentUser.name, group: currentUser.group, type: type, content: content }
-        });
+        await fetchAPI('addDiscussion', { payload: { unit, maker: currentUser.name, group: currentUser.group, type, content } });
         document.getElementById('discussContent').value = '';
-        loadDiscussions(true);
-      } catch (e) {}
+        loadDiscussions(false); // 백그라운드 진짜 데이터 새로고침
+      } catch (e) {
+        alert('통신 오류로 등록되지 않았습니다.');
+        loadDiscussions(true); // 실패 시 원상복구
+      } finally {
+        btn.innerText = '남기기'; 
+        btn.disabled = false;
+      }
     }
 
     async function loadDiscussions(showLoading = false) {
       const unit = document.getElementById('globalUnitSel').value;
       const board = document.getElementById('padletBoard');
-      if (showLoading) board.innerHTML = '<div style="grid-column: 1/-1; text-align:center; padding:20px;">불러오는 중...</div>';
-      
+      if (showLoading) board.innerHTML = '<div style="grid-column: 1/-1; text-align:center; padding:20px; color:#888;">불러오는 중...</div>';
+      if (!unit) return;
+
       try {
         const list = await fetchAPI('getDiscussions', { unit: unit });
         if (list.length === 0) {
@@ -412,12 +421,13 @@
         let html = '';
         list.forEach(item => {
           const tagClass = item.type === '논쟁' ? 'debate' : 'infer';
+          // 이름만 표시되도록 수정 (item.maker)
           html += `
             <div class="post-card">
               <div>
                 <div class="post-header">
                   <span class="tag ${tagClass}">${item.type}</span>
-                  <span>${item.group} ${item.maker}</span>
+                  <span>👤 ${item.maker}</span>
                 </div>
                 <div class="post-content">${item.content.replace(/\n/g, '<br>')}</div>
               </div>
@@ -433,16 +443,14 @@
     }
 
     async function likePost(id, btnEl) {
-      btnEl.disabled = true; // 중복 클릭 방지
+      btnEl.disabled = true;
       try {
         const newLikes = await fetchAPI('likeDiscussion', { id: id });
         btnEl.querySelector('.cnt').innerText = newLikes;
       } catch(e) { btnEl.disabled = false; }
     }
 
-    // ==========================================
-    // 기능 4: 독후 감상문
-    // ==========================================
+    // 기능 4: 독후 감상문 (선반영 UI 기법 적용)
     async function addReport() {
       const unit = document.getElementById('globalUnitSel').value;
       const content = document.getElementById('reportContent').value.trim();
@@ -450,20 +458,37 @@
       if (!unit) return alert('상단의 [현재 선택된 책]을 먼저 골라주세요.');
       if (!content) return alert('감상문을 입력해주세요.');
 
+      const btn = document.getElementById('reportBtn');
+      btn.innerText = '⏳ 처리 중...'; 
+      btn.disabled = true;
+
+      // 선반영 (미리 그리기)
+      const listDiv = document.getElementById('reportList');
+      const tempHTML = `
+        <div class="card" style="margin-bottom: 12px; padding: 16px; opacity:0.6; border:1px solid var(--brand);">
+          <div style="font-size: 13px; font-weight: bold; color: var(--brand); margin-bottom: 8px;">👤 ${currentUser.name} <span style="color:#aaa; font-weight:normal; font-size:11px; margin-left:8px;">방금 전</span></div>
+          <div style="line-height: 1.6; color: #333;">${content.replace(/\n/g, '<br>')}</div>
+        </div>
+      `;
+      listDiv.insertAdjacentHTML('afterbegin', tempHTML);
+
       try {
-        await fetchAPI('addReport', {
-          payload: { unit: unit, maker: currentUser.name, content: content }
-        });
-        alert('감상문이 등록되었습니다.');
+        await fetchAPI('addReport', { payload: { unit, maker: currentUser.name, content } });
         document.getElementById('reportContent').value = '';
+        loadReports(); 
+      } catch (e) {
+        alert('통신 오류 발생');
         loadReports();
-      } catch (e) {}
+      } finally {
+        btn.innerText = '감상문 등록'; 
+        btn.disabled = false;
+      }
     }
 
     async function loadReports() {
       const unit = document.getElementById('globalUnitSel').value;
       const listDiv = document.getElementById('reportList');
-      listDiv.innerHTML = '불러오는 중...';
+      if (!unit) return;
       
       try {
         const list = await fetchAPI('getReports', { unit: unit });
@@ -476,7 +501,7 @@
         list.forEach(item => {
           html += `
             <div class="card" style="margin-bottom: 12px; padding: 16px;">
-              <div style="font-size: 13px; font-weight: bold; color: var(--brand); margin-bottom: 8px;">👤 ${item.maker} <span style="color:#aaa; font-weight:normal; font-size:11px; margin-left:8px;">${item.time}</span></div>
+              <div style="font-size: 13px; font-weight: bold; color: var(--brand); margin-bottom: 8px;">👤 ${item.maker} <span style="color:#aaa; font-weight:normal; font-size:11px; margin-left:8px;">${item.time.substring(5, 16)}</span></div>
               <div style="line-height: 1.6; color: #333;">${item.content.replace(/\n/g, '<br>')}</div>
             </div>
           `;
