@@ -12,7 +12,7 @@
       --bg: #fafafa; --card: #fff; --ink: #222;
     }
     * { box-sizing: border-box; }
-    body { margin: 0; font-family: var(--font-sans); background: var(--bg); color: var(--ink); }
+    body { margin: 0; font-family: var(--font-sans); background: var(--bg); color: var(--ink); overflow-x: hidden; }
 
     /* 네비게이션 & 레이아웃 */
     .app-header { display: flex; justify-content: space-between; align-items: center; padding: 16px 24px; background: var(--card); box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 100; }
@@ -50,20 +50,63 @@
     .tag { padding: 4px 8px; border-radius: 6px; font-weight: bold; font-size: 11px; }
     .tag.debate { background: #ffe4e6; color: #e11d48; }
     .tag.infer { background: #e0e7ff; color: #4338ca; }
-    .post-content { font-size: 15px; line-height: 1.5; color: #222; margin-bottom: 12px; word-break: keep-all; }
+    .post-content { font-size: 15px; line-height: 1.5; color: #222; margin-bottom: 12px; }
     .post-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px dashed #eee; padding-top: 10px; }
     .like-btn { background: #fff1f2; color: #e11d48; border: 1px solid #fecdd3; border-radius: 20px; padding: 6px 12px; font-size: 13px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 4px; }
     
     .filter-toolbar { display: flex; gap: 10px; align-items: flex-end; background: #fff3f3; padding: 16px; border-radius: 12px; margin-bottom: 20px; }
     .filter-toolbar > div { flex: 1; }
 
-    /* 독서오락관 */
+    /* 독서오락관: 기존 레벨 및 애니메이션 */
     .quizQ { font-size: 22px; font-weight: bold; margin: 10px 0 20px; line-height: 1.5; text-align: center; }
     .answerBox { display: flex; gap: 10px; }
     .feedback { margin-top: 15px; font-weight: 800; text-align: center; font-size: 18px; }
     .feedback.ok { color: var(--ok); }
     .feedback.bad { color: var(--bad); }
-    .scoreDock { display: flex; justify-content: center; gap: 15px; margin-top: 20px; padding-top: 15px; border-top: 2px dashed #eee; font-weight: bold; }
+
+    .scoreDock { margin-top: 20px; display: flex; flex-direction: column; gap: 15px; align-items: center; border-top: 2px dashed #eee; padding-top: 15px; }
+    .scoreLeft { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+    .badge { background: #fff0cc; color: #7a4d00; padding: 8px 12px; border-radius: 999px; font-weight: 800; font-size: 14px; border: 1px solid #ffe29a; }
+
+    .levelCol { display: flex; flex-direction: column; align-items: center; width: 100%; max-width: 320px; }
+    .levelBadge { width: 100%; text-align: center; padding: 14px 18px; border-radius: 14px; font-size: 20px; font-weight: 900; border: 2px solid #ddd; background: #fff; color: #222; position: relative; overflow: hidden; transform: translateZ(0); }
+    
+    .level-1 { background: #fff; color: #111; border-color: #e5e7eb; }
+    .level-2 { color: #222; border-color: #cfd3d6; background: linear-gradient(90deg,#e8ebee,#f8f9fa,#e8ebee); background-size: 200% 100%; animation: shimmer 2.2s linear infinite; }
+    .level-3 { color: #5a3b00; border-color: #d4a017; background: linear-gradient(90deg,#ffe08a,#ffd166,#ffcf5d,#ffd166,#ffe08a); background-size: 300% 100%; animation: shimmer 1.8s linear infinite; text-shadow: 0 0 6px rgba(255,215,0,.45); }
+    .level-4 { color: #fff; border-color: #7c3aed; background: linear-gradient(135deg,#7c3aed,#a78bfa,#7c3aed); animation: aura4 1.5s ease-in-out infinite, beat4 2s ease-in-out infinite; box-shadow: 0 0 26px rgba(124,58,237,.70),inset 0 0 18px rgba(255,255,255,.26); }
+    .level-5 { color: #073b2a; border-color: #10b981; background: linear-gradient(135deg,#34d399,#10b981,#34d399); animation: aura5 2s ease-in-out infinite; box-shadow: 0 0 20px rgba(16,185,129,.55), inset 0 0 12px rgba(255,255,255,.2); }
+    .level-6 { color: #05324a; border-color: #38bdf8; background: linear-gradient(135deg,#06b6d4,#60a5fa,#06b6d4); animation: aura6 1.6s ease-in-out infinite, beat4 2.2s ease-in-out infinite; box-shadow: 0 0 28px rgba(56,189,248,.70), inset 0 0 16px rgba(255,255,255,.24); }
+    .level-7 { color: #0a0a0a; border-color: #8b5cf6; background: linear-gradient(90deg,#ff9a9e,#fad0c4,#fbc2eb,#a18cd1,#fbc2eb,#ff9a9e); background-size: 400% 100%; animation: aurora 6s linear infinite; box-shadow: 0 0 26px rgba(139,92,246,.45), inset 0 0 16px rgba(255,255,255,.2); }
+    .level-8 { color: #2a1b00; border-color: #eab308; background: linear-gradient(135deg,#fffbe6,#fff1a6,#ffe29a); animation: aura8 1.4s ease-in-out infinite, beat8 1.8s ease-in-out infinite; box-shadow: 0 0 40px rgba(234,179,8,.75), inset 0 0 26px rgba(255,255,255,.30); }
+
+    @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+    @keyframes aurora { 0% { background-position: 0% 50%; } 100% { background-position: 200% 50%; } }
+    @keyframes aura4 { 0%, 100% { box-shadow: 0 0 18px rgba(124,58,237,.60), inset 0 0 12px rgba(255,255,255,.15); } 50% { box-shadow: 0 0 40px rgba(124,58,237,.85), inset 0 0 24px rgba(255,255,255,.28); } }
+    @keyframes beat4 { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.04); } }
+    @keyframes beat8 { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.08); } }
+    
+    .levelBadge.pop { animation: pop .7s ease-out; }
+    @keyframes pop { 0% { transform: scale(.9); } 40% { transform: scale(1.06); } 100% { transform: scale(1); } }
+
+    .starRow { display: grid; grid-template-columns: repeat(8, 1fr); gap: 6px; width: 100%; margin: 8px auto 0; align-items: center; text-align: center; }
+    .starChar { font-size: 22px; line-height: 1; user-select: none; }
+    .starChar.filled { color: #f59e0b; text-shadow: 0 0 8px rgba(255,193,7,.32); }
+    .starChar.empty { color: #e5e7eb; }
+
+    /* 화면 전체 효과(Canvas) 레이어 */
+    .fx-layer, .fx-canvas { position: fixed; inset: 0; pointer-events: none; z-index: 9999; width: 100vw; height: 100vh; }
+    .fx-layer { opacity: 0; }
+    .fx-layer.show { opacity: 1; animation: fadeOut .75s ease-out forwards; }
+    @keyframes fadeOut { 0% { opacity: 1; } 100% { opacity: 0; } }
+    .flash-win { background: radial-gradient(circle at 50% 50%, rgba(255,255,255,.9), rgba(255,230,150,.8), rgba(255,107,107,.6)); mix-blend-mode: screen; }
+    .flash-lose { background: radial-gradient(circle at 50% 50%, rgba(255,200,200,.9), rgba(255,120,120,.7), rgba(180,0,0,.6)); mix-blend-mode: multiply; }
+    
+    .pulse { position: fixed; inset: 0; pointer-events: none; z-index: 9998; transform: scale(.9); opacity: 0; }
+    .pulse.show { animation: pulseAnim .9s ease-out forwards; }
+    @keyframes pulseAnim { 0% { transform: scale(.96); opacity: 0; } 20% { transform: scale(1.02); opacity: .6; } 100% { transform: scale(1); opacity: 0; } }
+    .pulse.win { background: linear-gradient(135deg, rgba(255,255,200,.6), rgba(255,200,255,.35)); }
+    .pulse.lose { background: linear-gradient(135deg, rgba(255,120,120,.35), rgba(180,0,0,.25)); }
   </style>
 </head>
 <body>
@@ -81,7 +124,8 @@
   <div id="appScreen" style="display: none;">
     <div class="app-header">
       <h1 class="app-title">시작이반</h1>
-      <div class="user-info" id="userInfoDisplay">학생 정보</div> </div>
+      <div class="user-info" id="userInfoDisplay">학생 정보</div>
+    </div>
     
     <div class="nav-tabs">
       <button class="tab-btn active" onclick="switchTab('quizTab')">🎮 독서오락관</button>
@@ -108,10 +152,18 @@
           </div>
         </div>
         
-        <div class="card" id="quizPlayCard" style="display:none; text-align: center;">
+        <div class="card" id="quizPlayCard" style="display:none;">
           <div id="quizBox">문제를 불러오는 중...</div>
-          <div class="scoreDock">
-            <span id="scoreHits">맞힌 개수: 0</span> / <span id="scoreTotal">푼 개수: 0</span>
+          <div class="scoreDock" id="scoreDock">
+            <div class="scoreLeft">
+              <div class="badge" id="scoreTotal">푼 개수: 0</div>
+              <div class="badge" id="scoreHits">맞힌 개수: 0</div>
+              <div class="badge" id="scoreRate">정답률: 0%</div>
+            </div>
+            <div class="levelCol">
+              <div class="levelBadge level-1" id="levelNow">현재 레벨: 독서계의 평민</div>
+              <div id="starRow" class="starRow" style="display:none;"></div>
+            </div>
           </div>
         </div>
       </div>
@@ -160,16 +212,23 @@
     </div>
   </div>
 
+  <div id="flash" class="fx-layer" aria-hidden="true"></div>
+  <div id="pulse" class="pulse" aria-hidden="true"></div>
+  <canvas id="confetti" class="fx-canvas" aria-hidden="true"></canvas>
+
   <script>
     // ==========================================
-    // API 설정 (반드시 선생님의 새 웹앱 URL로 변경하세요!)
+    // 선생님이 지정해주신 새 API 주소 고정!
     // ==========================================
     const API_URL = 'https://script.google.com/macros/s/AKfycbz6wsh5lJxDDHmxhNafWs4Un01pmiFG-FWTmdxHIl-cfzXH71pfC16_APd174ZNlQic/exec'; 
 
     let currentUser = null;
     let unitsList = [];
     let pollingTimer = null;
-    let quizState = { unit: '', ids: [], current: null, hits: 0, total: 0 };
+    let quizState = { unit: '', ids: [], current: null, hits: 0, total: 0, prevLevel: 1 };
+    
+    // 데이터 중복 로딩 방지용 플래그
+    let isFetchingDiscuss = false;
 
     async function fetchAPI(action, payload = {}) {
       payload.action = action;
@@ -199,7 +258,6 @@
 
       try {
         currentUser = await fetchAPI('verifyLogin', { userId: id, userPw: pw });
-        // 이름만 표시되도록 수정
         document.getElementById('userInfoDisplay').innerText = `👤 ${currentUser.name} 학생`;
         
         document.getElementById('loginScreen').style.display = 'none';
@@ -240,8 +298,10 @@
       if (tabId === 'discussTab' || tabId === 'reportTab') {
         globalBar.style.display = 'flex';
         onGlobalUnitChange(); 
+        
         if(pollingTimer) clearInterval(pollingTimer);
-        if (tabId === 'discussTab') pollingTimer = setInterval(() => loadDiscussions(false), 10000);
+        // ★ 실시간 속도 개선: 기존 10초(10000ms)에서 3초(3000ms)로 단축 ★
+        if (tabId === 'discussTab') pollingTimer = setInterval(() => loadDiscussions(false), 3000);
       } else {
         globalBar.style.display = 'none';
         if(pollingTimer) clearInterval(pollingTimer);
@@ -253,14 +313,69 @@
       if (document.getElementById('reportTab').classList.contains('active')) loadReports();
     }
 
+    // ==========================================
+    // 레벨 계산 로직
+    // ==========================================
+    function levelInfoNormal(hits) {
+      if (hits < 5)  return {lvl:1, title:'독서계의 평민'};
+      if (hits < 10) return {lvl:2, title:'독서계의 수련자'};
+      if (hits < 15) return {lvl:3, title:'독서계의 은둔고수'};
+      return {lvl:4, title:'독서계의 절대지존'};
+    }
+    function levelInfoRandom(hits) {
+      var t='추천도서계의 ';
+      if (hits <= 4)  return {lvl:1, title:t+'평민'};
+      if (hits <= 9)  return {lvl:2, title:t+'수련자'};
+      if (hits <= 14) return {lvl:3, title:t+'은둔고수'};
+      if (hits <= 19) return {lvl:4, title:t+'대가'};
+      if (hits <= 24) return {lvl:5, title:t+'현인'};
+      if (hits <= 29) return {lvl:6, title:t+'전설'};
+      if (hits <= 37) return {lvl:7, title:t+'초신성'};
+      return {lvl:8, title:t+'절대지존'};
+    }
+
+    function updateStarRow(currentLevel, isRandom) {
+      var row = document.getElementById('starRow');
+      if (!isRandom) { row.style.display = 'none'; return; }
+      row.style.display = 'grid';
+      var html = '';
+      for (var i=1; i<=8; i++) {
+        var cls = (i <= currentLevel) ? 'filled' : 'empty';
+        html += `<span class="starChar ${cls}">` + (i <= currentLevel ? '★' : '☆') + `</span>`;
+      }
+      row.innerHTML = html;
+    }
+
+    function updateQuizScore() {
+      document.getElementById('scoreHits').innerText = `맞힌 개수: ${quizState.hits}`;
+      document.getElementById('scoreTotal').innerText = `푼 개수: ${quizState.total}`;
+      const rate = quizState.total ? Math.round((quizState.hits/quizState.total)*100) : 0;
+      document.getElementById('scoreRate').innerText = `정답률: ${rate}%`;
+
+      const isRandom = (quizState.unit === '__RANDOM__');
+      const info = isRandom ? levelInfoRandom(quizState.hits) : levelInfoNormal(quizState.hits);
+      
+      const lb = document.getElementById('levelNow');
+      lb.textContent = `현재 레벨: ${info.title}`;
+      lb.className = `levelBadge level-${info.lvl}`;
+
+      updateStarRow(info.lvl, isRandom);
+
+      if (info.lvl > quizState.prevLevel) playLevelUpFX(info.lvl, isRandom);
+      quizState.prevLevel = info.lvl;
+    }
+
+    // ==========================================
     // 기능 1: 퀴즈 풀기
+    // ==========================================
     async function startQuiz() {
       quizState.unit = document.getElementById('quizUnitSel').value;
       if (!quizState.unit) return alert('도서를 선택하세요.');
       
       document.getElementById('quizFilterCard').style.display = 'none';
       document.getElementById('quizPlayCard').style.display = 'block';
-      quizState.hits = 0; quizState.total = 0; quizState.ids = [];
+      quizState.hits = 0; quizState.total = 0; quizState.ids = []; quizState.prevLevel = 1;
+      clearPendingFX(); stopBossSparkLoop();
       updateQuizScore();
       loadNextQuiz();
     }
@@ -278,7 +393,7 @@
         }
 
         if (!q) {
-          box.innerHTML = `<h3>해당 책에 등록된 문제가 없거나 모두 풀었습니다! 👏</h3>
+          box.innerHTML = `<h3>더 이상 등록된 문제가 없습니다! 👏</h3>
             <button class="btn-secondary" onclick="resetQuiz()">돌아가기</button>`;
           return;
         }
@@ -289,7 +404,7 @@
         box.innerHTML = `
           <div class="quizQ">${q.question}</div>
           <div class="answerBox">
-            <input type="text" id="ansInput" placeholder="정답 입력" onkeypress="if(event.key==='Enter') checkAnswer()">
+            <input type="text" id="ansInput" placeholder="정답 입력" autocomplete="off" onkeypress="if(event.key==='Enter') checkAnswer()">
             <button class="btn-primary" id="submitAnsBtn" style="width:120px;" onclick="checkAnswer()">확인</button>
           </div>
           <div id="feedbackBox" class="feedback"></div>
@@ -315,8 +430,10 @@
       
       if (isCorrect) {
         fb.innerText = '🎉 정답입니다!'; fb.className = 'feedback ok';
+        playWinFX3(); 
       } else {
         fb.innerHTML = `앗! 정답은 <b>${q.answer}</b> 입니다.`; fb.className = 'feedback bad';
+        playLoseFXLightning3(); 
       }
       
       if (q.explanation) { ex.style.display = 'block'; ex.innerText = `💡 해설: ${q.explanation}`; }
@@ -326,17 +443,15 @@
       document.getElementById('nextBtn').style.display = 'block';
     }
 
-    function updateQuizScore() {
-      document.getElementById('scoreHits').innerText = `맞힌 개수: ${quizState.hits}`;
-      document.getElementById('scoreTotal').innerText = `푼 개수: ${quizState.total}`;
-    }
-
     function resetQuiz() {
+      clearPendingFX(); stopBossSparkLoop();
       document.getElementById('quizPlayCard').style.display = 'none';
       document.getElementById('quizFilterCard').style.display = 'block';
     }
 
-    // 기능 2: 문제 내기 (속도 개선 및 버튼 잠금)
+    // ==========================================
+    // 기능 2: 문제 내기
+    // ==========================================
     async function submitNewQuestion() {
       const unit = document.getElementById('makeUnitSel').value;
       const q = document.getElementById('makeQ').value.trim();
@@ -346,26 +461,18 @@
       if (!unit || !q || !a) return alert('도서, 질문, 정답은 필수입니다!');
 
       const btn = document.getElementById('makeBtn');
-      btn.innerText = '⏳ 문제 등록 중...'; 
-      btn.disabled = true; // 중복 클릭 방지
+      btn.innerText = '⏳ 문제 등록 중...'; btn.disabled = true;
 
       try {
-        await fetchAPI('submitQuestion', { 
-          payload: { cls: currentUser.cls, maker: currentUser.name, unit: unit, question: q, answer: a, explanation: ex }
-        });
+        await fetchAPI('submitQuestion', { payload: { cls: currentUser.cls, maker: currentUser.name, unit: unit, question: q, answer: a, explanation: ex } });
         alert('문제가 등록되었습니다!');
-        document.getElementById('makeQ').value = '';
-        document.getElementById('makeA').value = '';
-        document.getElementById('makeEx').value = '';
-      } catch(e) {
-        alert('등록에 실패했습니다.');
-      } finally {
-        btn.innerText = '제출하기'; 
-        btn.disabled = false;
-      }
+        document.getElementById('makeQ').value = ''; document.getElementById('makeA').value = ''; document.getElementById('makeEx').value = '';
+      } catch(e) { alert('등록 실패'); } finally { btn.innerText = '제출하기'; btn.disabled = false; }
     }
 
-    // 기능 3: 토론 담벼락 (선반영 UI 기법 적용)
+    // ==========================================
+    // 기능 3: 토론 담벼락 (실시간 연동 최적화)
+    // ==========================================
     async function addDiscussion() {
       const unit = document.getElementById('globalUnitSel').value;
       const type = document.getElementById('discussType').value;
@@ -375,18 +482,14 @@
       if (!content) return alert('내용을 입력해주세요.');
 
       const btn = document.getElementById('discussBtn');
-      btn.innerText = '⏳ 처리 중...'; 
-      btn.disabled = true; // 중복 방지 잠금
+      btn.innerText = '⏳ 처리 중...'; btn.disabled = true;
 
-      // 선반영 (Optimistic UI): 통신 전 화면에 미리 그려서 답답함 해소
       const board = document.getElementById('padletBoard');
       const tagClass = type === '논쟁' ? 'debate' : 'infer';
       const tempHTML = `
         <div class="post-card optimistic">
-          <div>
-            <div class="post-header"><span class="tag ${tagClass}">${type}</span><span>👤 ${currentUser.name}</span></div>
-            <div class="post-content">${content.replace(/\n/g, '<br>')}</div>
-          </div>
+          <div><div class="post-header"><span class="tag ${tagClass}">${type}</span><span>👤 ${currentUser.name}</span></div>
+          <div class="post-content">${content.replace(/\n/g, '<br>')}</div></div>
           <div class="post-footer"><span style="font-size:11px; color:#aaa;">방금 전</span></div>
         </div>
       `;
@@ -395,51 +498,38 @@
       try {
         await fetchAPI('addDiscussion', { payload: { unit, maker: currentUser.name, group: currentUser.group, type, content } });
         document.getElementById('discussContent').value = '';
-        loadDiscussions(false); // 백그라운드 진짜 데이터 새로고침
-      } catch (e) {
-        alert('통신 오류로 등록되지 않았습니다.');
-        loadDiscussions(true); // 실패 시 원상복구
-      } finally {
-        btn.innerText = '남기기'; 
-        btn.disabled = false;
-      }
+        loadDiscussions(false);
+      } catch (e) { alert('오류 발생'); loadDiscussions(true); } finally { btn.innerText = '남기기'; btn.disabled = false; }
     }
 
     async function loadDiscussions(showLoading = false) {
+      // 이미 데이터를 불러오는 중이라면, 중복 요청(서버 터짐 방지) 스킵
+      if (isFetchingDiscuss) return;
+      isFetchingDiscuss = true;
+
       const unit = document.getElementById('globalUnitSel').value;
       const board = document.getElementById('padletBoard');
       if (showLoading) board.innerHTML = '<div style="grid-column: 1/-1; text-align:center; padding:20px; color:#888;">불러오는 중...</div>';
-      if (!unit) return;
+      if (!unit) { isFetchingDiscuss = false; return; }
 
       try {
         const list = await fetchAPI('getDiscussions', { unit: unit });
-        if (list.length === 0) {
-          board.innerHTML = '<div style="grid-column: 1/-1; text-align:center; color:#888;">아직 등록된 질문이나 의견이 없습니다. 첫 번째로 남겨보세요!</div>';
-          return;
-        }
-
+        if (list.length === 0) { board.innerHTML = '<div style="grid-column: 1/-1; text-align:center; color:#888;">아직 등록된 의견이 없습니다.</div>'; isFetchingDiscuss = false; return; }
+        
         let html = '';
         list.forEach(item => {
           const tagClass = item.type === '논쟁' ? 'debate' : 'infer';
-          // 이름만 표시되도록 수정 (item.maker)
           html += `
             <div class="post-card">
-              <div>
-                <div class="post-header">
-                  <span class="tag ${tagClass}">${item.type}</span>
-                  <span>👤 ${item.maker}</span>
-                </div>
-                <div class="post-content">${item.content.replace(/\n/g, '<br>')}</div>
-              </div>
-              <div class="post-footer">
-                <span style="font-size:11px; color:#aaa;">${item.time.substring(5, 16)}</span>
-                <button class="like-btn" onclick="likePost('${item.id}', this)">❤️ <span class="cnt">${item.likes}</span></button>
-              </div>
-            </div>
-          `;
+              <div><div class="post-header"><span class="tag ${tagClass}">${item.type}</span><span>👤 ${item.maker}</span></div>
+              <div class="post-content">${item.content.replace(/\n/g, '<br>')}</div></div>
+              <div class="post-footer"><span style="font-size:11px; color:#aaa;">${item.time.substring(5, 16)}</span><button class="like-btn" onclick="likePost('${item.id}', this)">❤️ <span class="cnt">${item.likes}</span></button></div>
+            </div>`;
         });
         board.innerHTML = html;
-      } catch(e) {}
+      } catch(e) {} finally {
+        isFetchingDiscuss = false; // 완료 후 락 해제
+      }
     }
 
     async function likePost(id, btnEl) {
@@ -450,7 +540,9 @@
       } catch(e) { btnEl.disabled = false; }
     }
 
-    // 기능 4: 독후 감상문 (선반영 UI 기법 적용)
+    // ==========================================
+    // 기능 4: 독후 감상문
+    // ==========================================
     async function addReport() {
       const unit = document.getElementById('globalUnitSel').value;
       const content = document.getElementById('reportContent').value.trim();
@@ -459,30 +551,21 @@
       if (!content) return alert('감상문을 입력해주세요.');
 
       const btn = document.getElementById('reportBtn');
-      btn.innerText = '⏳ 처리 중...'; 
-      btn.disabled = true;
+      btn.innerText = '⏳ 처리 중...'; btn.disabled = true;
 
-      // 선반영 (미리 그리기)
       const listDiv = document.getElementById('reportList');
       const tempHTML = `
         <div class="card" style="margin-bottom: 12px; padding: 16px; opacity:0.6; border:1px solid var(--brand);">
           <div style="font-size: 13px; font-weight: bold; color: var(--brand); margin-bottom: 8px;">👤 ${currentUser.name} <span style="color:#aaa; font-weight:normal; font-size:11px; margin-left:8px;">방금 전</span></div>
           <div style="line-height: 1.6; color: #333;">${content.replace(/\n/g, '<br>')}</div>
-        </div>
-      `;
+        </div>`;
       listDiv.insertAdjacentHTML('afterbegin', tempHTML);
 
       try {
         await fetchAPI('addReport', { payload: { unit, maker: currentUser.name, content } });
         document.getElementById('reportContent').value = '';
         loadReports(); 
-      } catch (e) {
-        alert('통신 오류 발생');
-        loadReports();
-      } finally {
-        btn.innerText = '감상문 등록'; 
-        btn.disabled = false;
-      }
+      } catch (e) { loadReports(); } finally { btn.innerText = '감상문 등록'; btn.disabled = false; }
     }
 
     async function loadReports() {
@@ -492,24 +575,117 @@
       
       try {
         const list = await fetchAPI('getReports', { unit: unit });
-        if (list.length === 0) {
-          listDiv.innerHTML = '<div style="color:#888;">아직 작성된 감상문이 없습니다.</div>';
-          return;
-        }
-
+        if (list.length === 0) { listDiv.innerHTML = '<div style="color:#888;">아직 작성된 감상문이 없습니다.</div>'; return; }
         let html = '';
         list.forEach(item => {
           html += `
             <div class="card" style="margin-bottom: 12px; padding: 16px;">
               <div style="font-size: 13px; font-weight: bold; color: var(--brand); margin-bottom: 8px;">👤 ${item.maker} <span style="color:#aaa; font-weight:normal; font-size:11px; margin-left:8px;">${item.time.substring(5, 16)}</span></div>
               <div style="line-height: 1.6; color: #333;">${item.content.replace(/\n/g, '<br>')}</div>
-            </div>
-          `;
+            </div>`;
         });
         listDiv.innerHTML = html;
       } catch(e) {}
     }
 
+    // ==========================================
+    // 화면 이펙트 (폭죽, 번개) 
+    // ==========================================
+    const flashEl=document.getElementById('flash'), pulseEl=document.getElementById('pulse');
+    const canvas=document.getElementById('confetti'), ctx=canvas.getContext('2d');
+    let particles=[], rafId=null, bossSparkTimer=null, pendingFXTimers=[];
+
+    function clearPendingFX(){ pendingFXTimers.forEach(clearTimeout); pendingFXTimers=[]; }
+    function stopBossSparkLoop(){ if(bossSparkTimer){ clearInterval(bossSparkTimer); bossSparkTimer=null; } }
+    function cssSize(){ const r=canvas.getBoundingClientRect(); return {w:r.width, h:r.height, left:r.left, top:r.top}; }
+    function resizeCanvas(){ const s=cssSize(), dpr=Math.min(window.devicePixelRatio||1,2); canvas.width=Math.round(s.w*dpr); canvas.height=Math.round(s.h*dpr); ctx.setTransform(dpr,0,0,dpr,0,0); }
+    window.addEventListener('resize', resizeCanvas); resizeCanvas();
+
+    function makeParticle(x,y,sMin,sMax,zMin,zMax,colors){
+      const a=Math.random()*Math.PI*2, s=sMin+Math.random()*(sMax-sMin);
+      return {x, y, vx:Math.cos(a)*s, vy:Math.sin(a)*s, g:.18+Math.random()*.3, size:zMin+Math.random()*(zMax-zMin), life:0, ttl:60+Math.random()*40, color:colors[Math.floor(Math.random()*colors.length)], spin:(Math.random()-.5)*.2};
+    }
+    function burst(cx,cy,n,palette,energetic){
+      const s=cssSize(); if(cx==null) cx=s.w/2; if(cy==null) cy=s.h/2;
+      for(let i=0;i<n;i++) particles.push(makeParticle(cx,cy,energetic?6:3,energetic?12:6,energetic?6:4,energetic?12:8,palette));
+      if(!rafId) rafId=requestAnimationFrame(loop);
+    }
+    function loop(){
+      rafId=requestAnimationFrame(loop);
+      const s=cssSize(); ctx.clearRect(0,0,s.w,s.h);
+      for(let i=particles.length-1;i>=0;i--){
+        const p=particles[i]; p.life++; p.vy+=p.g; p.x+=p.vx; p.y+=p.vy; p.size*=(1-p.spin*.02);
+        ctx.globalAlpha=Math.max(0,1-p.life/p.ttl); ctx.fillStyle=p.color; ctx.beginPath(); ctx.arc(p.x,p.y,Math.max(1,p.size),0,Math.PI*2); ctx.fill();
+        if(p.life>p.ttl||p.y>s.h+40) particles.splice(i,1);
+      }
+      if(particles.length===0){ cancelAnimationFrame(rafId); rafId=null; ctx.clearRect(0,0,s.w,s.h); }
+    }
+    function flash(kind){
+      flashEl.className=`fx-layer ${kind==='win'?'flash-win':'flash-lose'} show`; setTimeout(()=>flashEl.className='fx-layer',800);
+      pulseEl.className=`pulse ${kind==='win'?'win':'lose'} show`; setTimeout(()=>pulseEl.className='pulse',900);
+    }
+    function playWinFX(){
+      flash('win'); const s=cssSize(); const pal=['#ffd166','#ff6b6b','#f78fb3','#a29bfe','#70e1f5','#9be15d','#ffe29a'];
+      burst(s.w*.50,s.h*.50,220,pal,true); setTimeout(()=>burst(s.w*.48,s.h*.46,160,pal,true),120); setTimeout(()=>burst(s.w*.52,s.h*.46,160,pal,true),220);
+    }
+    function playWinFX3(){ playWinFX(); setTimeout(playWinFX,520); setTimeout(playWinFX,1040); }
+    function drawLightningOnce(){
+      const s=cssSize(); let x=s.w*(0.45+Math.random()*0.1), y=-20, seg=10+Math.floor(Math.random()*4);
+      ctx.save(); ctx.lineWidth=3+Math.random()*2; ctx.strokeStyle='rgba(255,255,200,0.97)'; ctx.shadowColor='rgba(255,255,120,0.95)'; ctx.shadowBlur=16;
+      ctx.beginPath(); ctx.moveTo(x,y);
+      for(let i=0;i<seg;i++){ x+=(Math.random()-0.5)*70; y+=s.h/(seg+1); ctx.lineTo(x,y);
+        if(Math.random()<0.3){ ctx.moveTo(x,y); ctx.lineTo(x+(Math.random()<0.5?-1:1)*(30+Math.random()*60), y-(10+Math.random()*40)); } }
+      ctx.stroke(); ctx.restore();
+    }
+    function playLoseFX(){ flash('lose'); const s=cssSize(); const red=['#ffb3b3','#ff6b6b','#c53030','#7f1d1d','#ffdddd']; burst(s.w*.50,s.h*.45,90,red,false); }
+    function playLoseFXLightning3(){ playLoseFX(); [0,160+Math.random()*160,360+Math.random()*240].forEach(d=>setTimeout(drawLightningOnce,d)); setTimeout(()=>flash('lose'),220); }
+
+    function drawSparkLines(cx, cy, count){
+      ctx.save(); ctx.globalCompositeOperation='lighter';
+      for (let i=0;i<count;i++){
+        let ang=Math.random()*Math.PI*2, len=12+Math.random()*24;
+        ctx.beginPath(); ctx.moveTo(cx,cy);
+        let midx=cx+Math.cos(ang)*(len*0.65), midy=cy+Math.sin(ang)*(len*0.65);
+        let endx=midx+(Math.random()-0.5)*10, endy=midy+(Math.random()-0.5)*10;
+        ctx.lineWidth=1+Math.random()*2; ctx.strokeStyle='rgba(255,255,200,0.95)'; ctx.shadowColor='rgba(255,240,150,0.95)'; ctx.shadowBlur=14;
+        ctx.lineTo(midx,midy); ctx.lineTo(endx,endy); ctx.stroke();
+      }
+      ctx.restore(); if(!rafId) rafId=requestAnimationFrame(loop);
+    }
+    function ensureBossSparkLoopElectric(){
+      if(bossSparkTimer) return;
+      bossSparkTimer = setInterval(()=>{
+        const lb=document.getElementById('levelNow');
+        if(!lb || !lb.className.includes('level-4')){ stopBossSparkLoop(); return; }
+        const r=lb.getBoundingClientRect(), c=canvas.getBoundingClientRect();
+        drawSparkLines(r.left+r.width/2-c.left, r.top+r.height/2-c.top, 12);
+      }, 950);
+    }
+
+    function playLevelUpFX(newLvl, isRandom){
+      const lb=document.getElementById('levelNow');
+      lb.classList.remove('pop'); void lb.offsetWidth; lb.classList.add('pop');
+      setTimeout(()=>lb.classList.remove('pop'), 750);
+      const r=lb.getBoundingClientRect(), c=canvas.getBoundingClientRect();
+      const cx=r.left+r.width/2-c.left, cy=r.top+r.height/2-c.top;
+
+      const pal2=['#e5e7eb','#c7ccd1','#f8fafc','#d1d5db','#e2e8f0'];
+      const pal3=['#fff1a6','#ffd166','#ffbf69','#ffe29a','#fff3bf'];
+      const pal4=['#ffe29a','#fff5cc','#fff1a6','#ffd166','#fffbe6'];
+      const pal6=['#06b6d4','#38bdf8','#60a5fa','#93c5fd','#a5f3fc'];
+      
+      clearPendingFX(); stopBossSparkLoop();
+
+      if (!isRandom){
+        if(newLvl===4){ flash('win'); burst(cx, cy, 220, pal4, true); setTimeout(()=>burst(cx, cy, 200, pal4, true), 180); setTimeout(()=>burst(cx, cy, 200, pal4, true), 360); setTimeout(drawLightningOnce, 120); setTimeout(drawLightningOnce, 280); ensureBossSparkLoopElectric(); }
+        else { burst(cx, cy, 160, newLvl===2?pal2:pal3, true); flash('win'); }
+        return;
+      }
+
+      if(newLvl===6){ burst(cx, cy, 260, pal6, true); setTimeout(()=>burst(cx, cy, 240, pal6, true), 180); drawLightningOnce(); setTimeout(drawLightningOnce, 200); flash('win'); }
+      else if(newLvl>=8){ burst(cx, cy, 280, pal4, true); setTimeout(()=>burst(cx, cy, 240, pal4, true), 180); setTimeout(()=>burst(cx, cy, 240, pal4, true), 360); setTimeout(drawLightningOnce, 140); setTimeout(drawLightningOnce, 300); flash('win'); setTimeout(()=>flash('win'),120); setTimeout(()=>flash('win'),260); }
+      else { burst(cx, cy, 180, pal3, true); flash('win'); }
+    }
   </script>
 </body>
 </html>
